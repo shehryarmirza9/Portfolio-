@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercedes AMG G-Wagon</title>
+    <link rel="stylesheet" href="car1.css">
+    <style>/* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Body and Header */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1c1c1c, #000);
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        header {
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.9);
+            box-shadow: 0 0 20px rgba(255, 23, 68, 0.5);
+        }
+        
+        header h1 {
+            margin-bottom: 10px;
+            color: #ff1744;
+            text-transform: uppercase;
+        }
+        
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between; /* Space between brand and menu */
+            align-items: center;
+            background-color: #1c1c1c; /* Dark background */
+            padding: 15px 30px; /* Padding around the navbar */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+            position: relative; /* For positioning dropdowns if needed */
+        }
+        
+        .navbar-brand h1 {
+            color: #ff1744; /* Bright color for the brand */
+            font-size: 2em; /* Font size for brand */
+            margin: 0; /* Remove default margin */
+        }
+        
+        /* Navbar Menu Styles */
+        .navbar-menu {
+            list-style-type: none; /* Remove bullet points */
+            display: flex; /* Display items in a row */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+        
+        .navbar-menu li {
+            margin: 0 15px; /* Space between items */
+        }
+        
+        /* Link Styles */
+        .navbar-menu a {
+            text-decoration: none; /* Remove underline */
+            color: #fff; /* White text color */
+            font-size: 1.2em; /* Font size for links */
+            padding: 10px 15px; /* Padding around links */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        }
+        
+        /* Hover Effect for Links */
+        .navbar-menu a:hover {
+            background-color: #ff1744; /* Background color on hover */
+            color: #fff; /* Text color on hover */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Text glow effect */
+        }
+        
+        /* Media Query for Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column; /* Stack elements vertically */
+                align-items: flex-start; /* Align items to the left */
+            }
+        
+            .navbar-menu {
+                flex-direction: column; /* Stack menu items */
+                width: 100%; /* Full width */
+            }
+        
+            .navbar-menu li {
+                margin: 10px 0; /* Space between items */
+            }
+        }
+        
+        
+        /* Filter Button Styles */
+        .filter-button {
+            padding: 15px 30px;
+            background-color: #ff1744;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+            z-index: 0;
+        }
+        
+        .filter-button:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .filter-button:hover {
+            color: #ff1744;
+            text-shadow: 0 0 20px rgba(255, 23, 68, 1);
+            transform: scale(1.05);
+        }
+        
+        /* Filter Options Styles */
+        .filter-options {
+            display: none; /* Hidden by default */
+            position: absolute; /* Position dropdown relative to button */
+            left: 50%; /* Center dropdown */
+            transform: translateX(-50%); /* Center alignment */
+            top: 60px; /* Space below the button */
+            background-color: #1c1c1c; /* Darker background for the dropdown */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+            z-index: 10;
+        }
+        
+        /* Individual Option Styles */
+        .filter-options select {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #292929;
+            color: #fff;
+            border: none; /* Remove default border */
+            font-size: 1em;
+            outline: none; /* Remove outline on focus */
+            transition: background-color 0.3s ease; /* Smooth background change */
+        }
+        
+        /* Hover Effect for Select */
+        .filter-options select:hover {
+            background-color: #ff1744; /* Brighten on hover */
+            color: #ffffff; /* White text on hover */
+        }
+        
+        /* Enhancement for Option Styling */
+        .filter-options option {
+            background-color: #292929; /* Option background */
+            color: #fff; /* Option text color */
+            padding: 10px; /* Padding for options */
+            border-radius: 5px; /* Rounded corners for options */
+        }
+        
+        /* Highlight Options on Hover */
+        .filter-options option:hover {
+            background-color: #ff1744; /* Change background on hover */
+            color: #fff; /* Keep text white */
+        }
+        
+        /* Modifications Section */
+        .modifications {
+            display: flex;
+            flex-direction: column; /* Stack the modifications vertically */
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .modification {
+            background-color: #292929; /* Background color for modifications */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px;
+            margin: 10px;
+            width: 80%; /* Adjust width as needed */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+            transition: transform 0.3s; /* Animation effect */
+        }
+        
+        /* Image Styles */
+        .modification-image {
+            width: 100%; /* Full width */
+            border-radius: 10px; /* Rounded corners for images */
+            transition: transform 0.3s; /* Animation effect */
+            margin-top: 10px; /* Space above images */
+        }
+        
+        .modification:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+        
+        .modification-image:hover {
+            transform: scale(1.1); /* Enlarge image on hover */
+        }
+        
+        /* Specifications Table */
+        .specifications {
+            padding: 20px;
+            background-color: rgba(20, 20, 20, 0.9);
+        }
+        
+        .specifications table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        
+        .specifications th, .specifications td {
+            padding: 10px;
+            border: 1px solid #ff1744;
+            text-align: left;
+        }
+        
+        .specifications th {
+            background-color: #333;
+            color: #ff1744;
+        }
+        /* About Section */
+        #about {
+            padding: 20px;
+            background-color: #1a1a1a; /* Slightly lighter background for contrast */
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        #about h2 {
+            color: #ffcc00; /* Highlight color for headings */
+        }
+        
+        /* Projects Section */
+        #projects {
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        #projects h2 {
+            color: #ffcc00; /* Highlight color for headings */
+        }
+        
+        #projects ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        #projects li {
+            margin: 10px 0;
+        }
+        
+        /* Contact Form Section */
+        #contact {
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        #contact h2 {
+            color: #ffcc00; /* Highlight color for headings */
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            margin: 10px 0 5px;
+        }
+        
+        input, textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #292929; /* Input background */
+            color: #fff; /* Input text color */
+        }
+        
+        input:focus, textarea:focus {
+            border-color: #ffcc00; /* Highlight border on focus */
+        }
+        
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ffcc00; /* Button color */
+            color: #292929; /* Button text color */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s; /* Animation */
+        }
+        
+        button:hover {
+            background-color: #ffc107; /* Lighter yellow on hover */
+            transform: scale(1.05); /* Enlarge button on hover */
+        }
+        
+        
+        /* Footer */
+        footer {
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.9);
+            color: #18ffff;
+        }
+        </style>
+</head>
+<body>
+    <header>
+        <h1>Mercedes AMG G-Wagon</h1>
+        <nav class="navbar">
+            <div class="navbar-brand">
+               
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#modifications">Modifications</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        
+        
+    </header>
+
+    <section class="filters">
+        <h2>Filter Modifications</h2>
+        <div class="filter-container">
+            <button id="filter-button" class="filter-button">Select Modification</button>
+            <div id="filter-options" class="filter-options">
+                <select id="modification-filter">
+                    <option value="all">All Modifications</option>
+                    <option value="brabus">Brabus</option>
+                    <option value="mansory">Mansory</option>
+                </select>
+            </div>
+        </div>
+    </section>
+    
+    
+
+    <section class="modifications">
+        <div class="modification" data-modification="brabus">
+            <h3>Brabus Modifications</h3>
+            <img src="brabus.jpg" alt="Brabus G-Wagon" class="modification-image">
+            <h3>Brabus G-Wagon</h3>
+                <p>The takes the iconic Mercedes-Benz G-Class to an entirely new level of luxury and performance. Renowned for its aggressive styling and unparalleled power, this high-performance SUV is engineered for those who demand the best.</p>
+        </div>
+        <div class="modification" data-modification="mansory">
+            <h3>Mansory Modifications</h3>
+            <img src="mansory.jpg" alt="Mansory G-Wagon" class="modification-image">
+            <h3>Mansory G-Wagon</h3>
+            <p>Mansory G-Wagon
+                The Mansory G-Wagon represents the pinnacle of automotive luxury and performance, transforming the iconic Mercedes-Benz G-Class into an extraordinary masterpiece. Renowned for its bespoke craftsmanship and aggressive aesthetics, this elite SUV embodies sophistication and power.</p>
+        </div>
+    </section>
+    
+    
+
+    <section class="specifications" id="specifications">
+        <h2>Engine Specifications</h2>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Specification</th>
+            </tr>
+            <tr>
+                <td>Engine Type</td>
+                <td>V8 Bi-Turbo</td>
+            </tr>
+            <tr>
+                <td>Horsepower</td>
+                <td>577 hp</td>
+            </tr>
+            <tr>
+                <td>Torque</td>
+                <td>627 lb-ft</td>
+            </tr>
+            <tr>
+                <td>0-60 mph</td>
+                <td>4.5 seconds</td>
+            </tr>
+            <!-- Add more specifications as needed -->
+        </table>
+    </section>
+<!-- About Section -->
+<section id="about">
+    <h2>About</h2>
+    <p>The Mercedes AMG G-Wagon is not just an SUV; it’s a symbol of luxury, performance, and versatility. With its distinctive design and powerful performance, it stands out on any terrain.</p>
+</section>
+
+<!-- Projects Section -->
+<section id="projects">
+    <h2>Projects</h2>
+    <ul>
+        <li>Project 1: G-Wagon Custom Modifications</li>
+        <li>Project 2: Engine Performance Tuning</li>
+        <li>Project 3: Interior Luxury Upgrades</li>
+    </ul>
+</section>
+
+<!-- Contact Form Section -->
+<section id="contact">
+    <h2>Contact Us</h2>
+    <form action="#" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+        
+        <button type="submit">Send</button>
+    </form>
+</section>
+    <footer>
+        <p>&copy; 2024 Mercedes AMG G-Wagon Fan Site</p>
+    </footer>
+
+    <script>document.getElementById('filter-button').addEventListener('click', function() {
+        const filterOptions = document.getElementById('filter-options');
+        filterOptions.classList.toggle('active');
+    });
+    
+    document.getElementById('modification-filter').addEventListener('change', function() {
+        const selectedValue = this.value;
+        const modifications = document.querySelectorAll('.modification');
+    
+        modifications.forEach(modification => {
+            if (selectedValue === 'all' || modification.getAttribute('data-modification') === selectedValue) {
+                modification.style.display = 'block';
+            } else {
+                modification.style.display = 'none';
+            }
+        });
+    });
+    document.getElementById('modification-filter').addEventListener('change', function() {
+        const selectedValue = this.value;
+        const modifications = document.querySelectorAll('.modification');
+    
+        modifications.forEach(modification => {
+            if (selectedValue === 'all' || modification.getAttribute('data-modification') === selectedValue) {
+                modification.style.display = 'block';
+            } else {
+                modification.style.display = 'none';
+            }
+        });
+    });
+    
+    </script>
+</body>
+</html>
